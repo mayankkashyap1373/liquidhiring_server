@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        /* Container for email content */
+        .container {
+            max-width: 1024px;
+            margin: 0 auto;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+
+        /* Header styling */
+        .header {
+            background: linear-gradient(143.34deg, #0E1F34 0%, #010B18 99.48%);
+            padding: 24px 20px 20px 20px;
+            text-align: center;
+            border-radius: 5px 5px 0 0;
+        }
+
+        /* Main content styling */
+        .main-content {
+            background-color: #f5f5f5;
+            padding: 40px;
+        }
+
+        /* Indented paragraph styling */
+        .indented {
+            padding: 20px 30px;
+            text-align: justify;
+        }
+
+        /* Footer styling */
+        .footer {
+            background-color: #2C73D2;
+            color: #fff;
+            padding: 5px;
+            text-align: center;
+            border-radius: 0 0 5px 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <!-- Logo -->
+            <img src="https://liquidhiring.com/logo-text.png" alt="Logo" style="width: 150px;" />
+        </div>
+        <div class="main-content" style="color: #000 !important;">
+            <!-- Greeting -->
+            <p>Dear <strong><%= user.username %></strong>,</p>
+            <div class="indented">
+                <!-- Email verification instructions -->
+                <p>Welcome to LiquidHiring and thank you for choosing our platform. As part of our security measures, we require that you verify your email address before proceeding with your account.</p>
+                <p>Please click on the link below or copy and paste it into your browser to complete the email verification process:</p>
+                <p>http://localhost:8000/api/v1/user/verify-email/<%= user.emailVerificationToken %></p>
+                <p>If you did not request this email or believe this message was sent in error, please ignore it, and your email will remain unverified. However, if you continue to experience issues or need assistance, feel free to reach out to our support team.</p>
+                <p>We appreciate your cooperation in helping us maintain the highest standards of security and privacy. We look forward to having you as a valued member of the LiquidHiring community.</p>
+            </div>
+            <!-- Closing -->
+            <p>Best regards,<br>
+            The LiquidHiring Team</p>
+        </div>
+        <div class="footer">
+            <!-- Footer text -->
+            <p>&copy; LiquidHiring. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

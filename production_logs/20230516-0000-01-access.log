@@ -1,0 +1,14 @@
+[0mPOST /api/v1/auth/login [32m200[0m 71.656 ms - 725[0m
+[0mPOST /api/v1/auth/login [32m200[0m 29.600 ms - 574[0m
+[0mPOST /api/v1/auth/login [32m200[0m 37.818 ms - 725[0m
+[0mPOST /api/v1/auth/login [32m200[0m 23.085 ms - 574[0m
+[0mPOST /api/v1/auth/login [32m200[0m 44.765 ms - 574[0m
+[0mPOST /api/v1/auth/login [32m200[0m 46.355 ms - 574[0m
+[0mGET /api/v1/employer/jobs [31m500[0m 3.026 ms - 61[0m
+[0mGET /api/v1/employer/jobs [31m500[0m 0.715 ms - 61[0m
+[0mGET /api/v1/employer/jobs [31m500[0m 0.586 ms - 61[0m
+[0mGET /api/v1/employer/jobs [31m500[0m 0.181 ms - 61[0m
+[0mGET /api/v1/employer/jobs [31m500[0m 0.229 ms - 61[0m
+[0mGET /api/v1/employer/jobs [31m500[0m 0.272 ms - 61[0m
+[0mPOST /api/v1/employer/jobs [31m500[0m 6.970 ms - 61[0m
+[0mPOST /api/v1/auth/login [32m200[0m 64.984 ms - 574[0m

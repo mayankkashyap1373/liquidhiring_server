@@ -1,0 +1,9 @@
+[0mPOST /api/v1/auth/login [32m200[0m 76.965 ms - 574[0m
+[0mPOST /api/v1/auth/login [32m200[0m 45.435 ms - 761[0m
+[0mPUT /api/v1/user/me [32m200[0m 2489.786 ms - 543[0m
+[0mPUT /api/v1/user/me [32m200[0m 2429.079 ms - 543[0m
+[0mPUT /api/v1/user/me [32m200[0m 2396.941 ms - 543[0m
+[0mPUT /api/v1/user/me [32m200[0m 101531.700 ms - 543[0m
+[0mPUT /api/v1/user/me [32m200[0m 16583.146 ms - 543[0m
+[0mPUT /api/v1/user/me [32m200[0m 16501.289 ms - 543[0m
+[0mPUT /api/v1/user/me [32m200[0m 16506.421 ms - 543[0m
