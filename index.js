@@ -88,6 +88,10 @@ app.use(express.urlencoded({ limit: '10mb', extended: true }));
 app.use(logger(env.morgan.mode, env.morgan.options));
 
 // Use the main router for handling all routes
+// create a route to send message "Server is running"
+app.get('/', (req, res) => {
+    res.send('Server is running');
+});
 app.use('/', require('./routes'));
 
 // Error handling middleware
