@@ -33,6 +33,7 @@
     "gulp-rev": "^10.0.0",
     "gulp-sass": "^5.1.0",
     "gulp-uglify-es": "^3.0.0",
+    "index.js": "^0.0.3",
     "kue": "^0.11.6",
     "mongoose": "^7.0.3",
     "morgan": "^1.10.0",

@@ -1,6 +1,6 @@
 const Job = require('../../../models/job');
 const AppliedJob = require('../../../models/appliedJob');
-const { ErrorHandler, handleError } = require('../../../helpers/errorHandler');
+// const { ErrorHandler, handleError } = require('../../../helpers/errorHandler');
 
 // Get all jobs
 exports.getAllJobs = async (req, res) => {
@@ -30,7 +30,8 @@ exports.getAllJobs = async (req, res) => {
 
     res.status(200).json({ jobs: jobsWithCandidates, total_pages: totalPages });
   } catch (error) {
-    handleError(error, res);
+    console.log(error);
+    // handleError(error, res);
   }
 };
 
@@ -43,7 +44,8 @@ exports.getJob = async (req, res) => {
     const appliedJobs = await AppliedJob.find({ job: job._id });
     res.status(200).json({ job, candidates: appliedJobs ? appliedJobs.length : 0 });
   } catch (error) {
-    handleError(error, res);
+    console.log(error);
+    // handleError(error, res);
   }
 };
 
@@ -74,7 +76,8 @@ exports.searchJobs = async (req, res) => {
     // Return the matching jobs with the number of candidates
     res.status(200).json(jobsWithCandidates);
   } catch (error) {
-    handleError(error, res);
+    console.log(error);
+    // handleError(error, res);
   }
 };
 
@@ -85,6 +88,7 @@ exports.getFeaturedJobs = async (req, res) => {
     console.log(jobs);
     res.status(200).json(jobs);
   } catch (error) {
-    handleError(error, res);
+    console.log(error);
+    // handleError(error, res);
   }
 };

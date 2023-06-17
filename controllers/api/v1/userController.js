@@ -8,7 +8,7 @@ const crypto = require('crypto');
 const Queue = require('bull');
 const emailVerificationQueue = new Queue('emailVerification');
 const passwordResetQueue = new Queue('passwordReset');
-const { ErrorHandler, handleError } = require('../../../helpers/errorHandler');
+// const { ErrorHandler, handleError } = require('../../../helpers/errorHandler');
 const path = require('path');
 const fs = require('fs');
 const RESUME_PATH = 'uploads/jobseekers/resume';
@@ -19,12 +19,14 @@ exports.register = async (req, res) => {
         const { username, email, password, role, firstName, lastName, companyName } = req.body;
 
         if (!password) {
-            throw new ErrorHandler(400, 'Password is required');
+            console.log('Password is required');
+            // throw new ErrorHandler(400, 'Password is required');
         }
 
         const existingUser = await User.findOne({ $or: [{ username }, { email }] });
         if (existingUser) {
-            throw new ErrorHandler(409, 'Username or email already exists');
+            console.log('Username or email already exists');
+            // throw new ErrorHandler(409, 'Username or email already exists');
         }
 
         const hashedPassword = await bcrypt.hash(password, await bcrypt.genSalt(8));
@@ -47,7 +49,8 @@ exports.register = async (req, res) => {
         const job = await emailVerificationQueue.add(newUser);
         res.status(201).json({ status: 'success', message: 'Verification email sent' });
     } catch (error) {
-        handleError(error, res);
+        console.log(error);
+        // handleError(error, res);
     }
 };
 
@@ -123,14 +126,15 @@ exports.updateUser = async (req, res) => {
         res.status(200).json({ status: 'success', data: responseData });
     } catch (error) {
         console.log(error);
-        handleError(error, res);
+        // handleError(error, res);
     }
 };
 
 exports.uploadProfilePicture = async (req, res) => {
     try {
         if (!req.file) {
-            throw new ErrorHandler(400, 'No file provided');
+            console.log('No file provided');
+            // throw new ErrorHandler(400, 'No file provided');
         }
         
         // You can adjust the logic below to fit your data model
@@ -151,10 +155,12 @@ exports.uploadProfilePicture = async (req, res) => {
             await employer.save();
             res.status(200).json({ status: 'success', data: { imageUrl: employer.profilePicture } });
         } else {
-            throw new ErrorHandler(400, 'Unknown user role');
+            console.log('Unknown user role');
+            // throw new ErrorHandler(400, 'Unknown user role');
         }
     } catch (error) {
-        handleError(error, res);
+        console.log(error);
+        // handleError(error, res);
     }
 };
 
@@ -162,7 +168,8 @@ exports.verifyEmail = async (req, res) => {
     try {
         const { token } = req.params;
         if (!token) {
-            throw new ErrorHandler(400, 'Verification token is required');
+            console.log('Verification token is required');
+            // throw new ErrorHandler(400, 'Verification token is required');
         }
 
         const user = await User.findOne({
@@ -171,7 +178,8 @@ exports.verifyEmail = async (req, res) => {
         });
 
         if (!user) {
-            throw new ErrorHandler(400, 'Invalid or expired verification token');
+            console.log('Invalid or expired verification token');
+            // throw new ErrorHandler(400, 'Invalid or expired verification token');
         }
 
         user.emailVerificationToken = undefined;
@@ -181,7 +189,8 @@ exports.verifyEmail = async (req, res) => {
 
         res.status(200).json({ status: 'success', data: { user }, message: 'Email successfully verified' });
     } catch (error) {
-        handleError(error, res);
+        console.log(error);
+        // handleError(error, res);
     }
 };
 
@@ -189,11 +198,13 @@ exports.requestPasswordReset = async (req, res) => {
     try {
         const { email } = req.body;
         if (!email) {
-            throw new ErrorHandler(400, 'Email is required');
+            console.log('Email is required');
+            // throw new ErrorHandler(400, 'Email is required');
         }
         const user = await User.findOne({ email });
         if (!user) {
-            throw new ErrorHandler(404, 'User not found');
+            console.log('User not found');
+            // throw new ErrorHandler(404, 'User not found');
         }
         const token = crypto.randomBytes(32).toString('hex');
         user.resetPasswordToken = token;
@@ -203,7 +214,8 @@ exports.requestPasswordReset = async (req, res) => {
 
         res.status(200).json({ status: 'success', message: 'Password reset email queued for sending' });
     } catch (error) {
-        handleError(error, res);
+        console.log(error);
+        // handleError(error, res);
     }
 };
 
@@ -211,7 +223,8 @@ exports.validateResetToken = async (req, res) => {
     try {
         const { token } = req.params;
         if (!token) {
-            throw new ErrorHandler(400, 'Reset token is required');
+            console.log('Reset token is required');
+            // throw new ErrorHandler(400, 'Reset token is required');
         }
 
         const user = await User.findOne({
@@ -220,12 +233,14 @@ exports.validateResetToken = async (req, res) => {
         });
 
         if (!user) {
-            throw new ErrorHandler(400, 'Invalid or expired reset token');
+            console.log('Invalid or expired reset token');
+            // throw new ErrorHandler(400, 'Invalid or expired reset token');
         }
 
         res.status(200).json({ status: 'success', message: 'Valid reset token' });
     } catch (error) {
-        handleError(error, res);
+        console.log(error);
+        // handleError(error, res);
     }
 };
 
@@ -233,14 +248,16 @@ exports.resetPassword = async (req, res) => {
     try {
         const { token, newPassword } = req.body;
         if (!token || !newPassword) {
-            throw new ErrorHandler(400, 'Reset token and new password are required');
+            console.log('Reset token and new password are required');
+            // throw new ErrorHandler(400, 'Reset token and new password are required');
         }
         const user = await User.findOne({
             resetPasswordToken: token,
             resetPasswordTokenExpiresAt: { $gt: Date.now() },
         });
         if (!user) {
-            throw new ErrorHandler(400, 'Invalid or expired reset token');
+            console.log('Invalid or expired reset token');
+            // throw new ErrorHandler(400, 'Invalid or expired reset token');
         }
         const salt = await bcrypt.genSalt(8);
         const hashedPassword = await bcrypt.hash(newPassword, salt);
@@ -250,6 +267,7 @@ exports.resetPassword = async (req, res) => {
         await user.save();
         res.status(200).json({ status: 'success', message: 'Password successfully reset' });
     } catch (error) {
-        handleError(error, res);
+        console.log(error);
+        // handleError(error, res);
     }
 };

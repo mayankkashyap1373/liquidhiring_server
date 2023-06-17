@@ -5,11 +5,13 @@ const socketIo = require('socket.io');
 const env = require('./config/environment');
 const logger = require('morgan');
 const cors = require('cors');
-const { handleError } = require('./helpers/errorHandler');
+// const { handleError } = require('./helpers/errorHandler');
 const chatGPTProcessor = require('./queueProcessors/chatGPTProcessor');
 
 // Create an Express application
 const app = express();
+
+console.log('Starting Part 1 running...');
 
 // Create an HTTP server from the Express application
 const server = http.createServer(app);
@@ -62,6 +64,7 @@ io.on('connection', (socket) => {
         console.log('Error connecting to server:', err);
     });
 });
+console.log('Starting Part 2 running...');
 
 // Enable CORS for all routes
 app.use(cors({
@@ -88,9 +91,11 @@ app.use(logger(env.morgan.mode, env.morgan.options));
 app.use('/', require('./routes'));
 
 // Error handling middleware
-app.use((err, req, res, next) => {
-    handleError(err, res);
-});
+// app.use((err, req, res, next) => {
+//     handleError(err, res);
+// });
+
+console.log('Starting Part 3 running...');
 
 // Handle 404 errors
 app.use((req, res, next) => {

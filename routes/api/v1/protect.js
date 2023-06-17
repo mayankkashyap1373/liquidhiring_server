@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require('../../../models/user');
-const { handleError, ErrorHandler } = require('../../../helpers/errorHandler');
+// const { handleError, ErrorHandler } = require('../../../helpers/errorHandler');
 
 exports.isUser = async (req, res, next) => {
     console.log(req.headers.authorization);
@@ -8,7 +8,8 @@ exports.isUser = async (req, res, next) => {
         // Check if the Authorization header exists
         const authHeader = req.headers.authorization;
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
-            throw new ErrorHandler(401, 'You are not logged in. Please log in to get access.');
+            console.log("You are not logged in. Please log in to get access.");
+            // throw new ErrorHandler(401, 'You are not logged in. Please log in to get access.');
         }
 
         // Extract the token from the header
@@ -23,7 +24,8 @@ exports.isUser = async (req, res, next) => {
         // Find the user
         const currentUser = await User.findById(decoded.id);
         if (!currentUser) {
-            throw new ErrorHandler(401, 'The user belonging to this token no longer exists.');
+            console.log("The user belonging to this token no longer exists.");
+            // throw new ErrorHandler(401, 'The user belonging to this token no longer exists.');
         }
 
         // Attach the user to the request object
@@ -31,7 +33,7 @@ exports.isUser = async (req, res, next) => {
         next();
     } catch (error) {
         console.log(error);
-        handleError(error, res);
+        // handleError(error, res);
     }
 };
 
@@ -40,7 +42,8 @@ exports.isEmployer = async (req, res, next) => {
         // Check if the Authorization header exists
         const authHeader = req.headers.authorization;
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
-            throw new ErrorHandler(res, 401, 'You are not logged in. Please log in to get access.');
+            console.log("You are not logged in. Please log in to get access.");
+            // throw new ErrorHandler(res, 401, 'You are not logged in. Please log in to get access.');
         }
 
         // Extract the token from the header
@@ -52,19 +55,22 @@ exports.isEmployer = async (req, res, next) => {
         // Find the user
         const currentUser = await User.findById(decoded.id);
         if (!currentUser) {
-            throw new ErrorHandler(res, 401, 'The user belonging to this token no longer exists.');
+            console.log("The user belonging to this token no longer exists.");
+            // throw new ErrorHandler(res, 401, 'The user belonging to this token no longer exists.');
         }
 
         // Check if the user role is 'employer'
         if (currentUser.role !== 'employer') {
-            throw new ErrorHandler(res, 403, 'Forbidden: Access is allowed only to employers.');
+            console.log("Forbidden: Access is allowed only to employers.");
+            // throw new ErrorHandler(res, 403, 'Forbidden: Access is allowed only to employers.');
         }
 
         // Attach the user to the request object
         req.user = currentUser;
         next();
     } catch (error) {
-        handleError(error, res);
+        console.log(error);
+        // handleError(error, res);
     }
 };
 
@@ -73,7 +79,8 @@ exports.isJobseeker = async (req, res, next) => {
         // Check if the Authorization header exists
         const authHeader = req.headers.authorization;
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
-            throw new ErrorHandler(res, 401, 'You are not logged in. Please log in to get access.');
+            console.log("You are not logged in. Please log in to get access.");
+            // throw new ErrorHandler(res, 401, 'You are not logged in. Please log in to get access.');
         }
 
         // Extract the token from the header
@@ -85,18 +92,21 @@ exports.isJobseeker = async (req, res, next) => {
         // Find the user
         const currentUser = await User.findById(decoded.id);
         if (!currentUser) {
-            throw new ErrorHandler(res, 401, 'The user belonging to this token no longer exists.');
+            console.log("The user belonging to this token no longer exists.");
+            // throw new ErrorHandler(res, 401, 'The user belonging to this token no longer exists.');
         }
 
         // Check if the user role is 'jobseeker'
         if (currentUser.role !== 'jobseeker') {
-            throw new ErrorHandler(res, 403, 'Forbidden: Access is allowed only to jobseekers.');
+            console.log("Forbidden: Access is allowed only to jobseekers.");
+            // throw new ErrorHandler(res, 403, 'Forbidden: Access is allowed only to jobseekers.');
         }
 
         // Attach the user to the request object
         req.user = currentUser;
         next();
     } catch (error) {
-        handleError(error, res);
+        console.log(error);
+        // handleError(error, res);
     }
 };

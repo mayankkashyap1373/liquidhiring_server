@@ -1,5 +1,5 @@
 const Subscriber = require('../../../models/subscriber');
-const { ErrorHandler, handleError } = require('../../../helpers/errorHandler');
+// const { ErrorHandler, handleError } = require('../../../helpers/errorHandler');
 
 exports.subscribe = async (req, res) => {
     try {
@@ -8,7 +8,8 @@ exports.subscribe = async (req, res) => {
         await subscriber.save();
         res.status(201).json({ message: 'Subscription successful' });
     } catch (error) {
-        handleError(error, res);
+        console.log("Error: ", error);
+        // handleError(error, res);
     }
 };
 
@@ -17,7 +18,8 @@ exports.sendNewsletters = async (req, res) => {
         const subscribers = await Subscriber.find();
         const emails = subscribers.map((subscriber) => subscriber.email);
     } catch (error) {
-        handleError(error, res);
+        console.log("Error: ", error);
+        // handleError(error, res);
     }
 };
 
@@ -27,13 +29,15 @@ exports.unsubscribe = async (req, res) => {
         const subscriber = await Subscriber.findOne({ uuid });
 
         if (!subscriber) {
-            throw new ErrorHandler(404, 'You are not subscribed to our newsletters');
+            console.log("You are not subscribed to our newsletters");
+            // throw new ErrorHandler(404, 'You are not subscribed to our newsletters');
         }
 
         await Subscriber.deleteOne({ uuid });
         res.status(200).json({ message: 'You have been unsubscribed' });
     } catch (error) {
-        handleError(error, res);
+        console.log("Error: ", error);
+        // handleError(error, res);
     }
 };
 

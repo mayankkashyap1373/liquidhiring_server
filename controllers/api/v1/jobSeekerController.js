@@ -3,7 +3,7 @@
 const Job = require('../../../models/job');
 const AppliedJob = require('../../../models/appliedJob');
 const JobSeeker = require('../../../models/jobSeeker');
-const { ErrorHandler, handleError } = require('../../../helpers/errorHandler');
+// const { ErrorHandler, handleError } = require('../../../helpers/errorHandler');
 const path = require('path');
 const fs = require('fs');
 const RESUME_PATH = 'uploads/jobseekers/resume';
@@ -15,7 +15,8 @@ exports.uploadAvatar = async (req, res) => {
     console.log('Request body', req.body);
     try {
     } catch (error) {
-        handleError(error, res);
+        console.log('Error: ', error);
+        // handleError(error, res);
     }
 };
 
@@ -29,7 +30,7 @@ exports.uploadResume = async (req, res) => {
             const resumeDataUrl = req.body.resume;
             const fileExtMatch = resumeDataUrl.match(/^data:.*\/(.*);base64,/);
             if (!fileExtMatch || fileExtMatch.length < 2) {
-                throw new ErrorHandler(400, 'Invalid resume data format');
+                // throw new ErrorHandler(400, 'Invalid resume data format');
             }
             const fileExt = '.' + fileExtMatch[1];
             const newFilename = 'resume-' + Date.now() + fileExt;
@@ -60,7 +61,7 @@ exports.uploadResume = async (req, res) => {
         res.status(200).json({ status: 'success', message: 'Resume uploaded and processing started.' });
     } catch (error) {
         console.log(error);
-        handleError(error, res);
+        // handleError(error, res);
     }
 };
 
@@ -70,7 +71,8 @@ exports.applyJob = async (req, res) => {
         const job = await Job.findById(req.params.id);
 
         if (!job) {
-            throw new ErrorHandler(404, 'Job not found');
+            console.log('Job not found');
+            // throw new ErrorHandler(404, 'Job not found');
         }
 
         const jobseeker = await JobSeeker.findOne({ user: req.user._id });
@@ -82,7 +84,8 @@ exports.applyJob = async (req, res) => {
 
         res.status(201).json({ status: 'success', data: { appliedJob } });
     } catch (error) {
-        handleError(error, res);
+        console.log(error);
+        // handleError(error, res);
     }
 };
 
@@ -95,7 +98,8 @@ exports.getAppliedJobs = async (req, res) => {
 
         res.status(200).json({ status: 'success', results: jobs.length, data: { jobs } });
     } catch (error) {
-        handleError(error, res);
+        console.log(error);
+        // handleError(error, res);
     }
 };
 
@@ -106,11 +110,13 @@ exports.checkAppliedJob = async (req, res) => {
         const appliedJob = await AppliedJob.findOne({ job: req.params.id, jobseeker: jobseeker._id });
 
         if (!appliedJob) {
-            throw new ErrorHandler(404, 'Job not found');
+            console.log('Job not found');
+            // throw new ErrorHandler(404, 'Job not found');
         }
 
         res.status(200).json({ status: 'success', isApplied: true, message: 'Job applied' });
     } catch (error) {
-        handleError(error, res);
+        console.log(error);
+        // handleError(error, res);
     }
 };

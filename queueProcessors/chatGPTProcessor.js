@@ -1,7 +1,7 @@
 // Path: queueProcessors/chatGPTProcessor.js
 
 const Queue = require('bull');
-const { ErrorHandler, handleError } = require('../helpers/errorHandler');
+// const { ErrorHandler, handleError } = require('../helpers/errorHandler');
 const openaiService = require('../helpers/openaiService');
 const User = require('../models/user');
 const Jobseeker = require('../models/jobSeeker');
@@ -42,7 +42,7 @@ chatGPTProcessingQueue.process(async (job) => {
         return suggestions;
     } catch (error) {
         console.log(error);
-        return { status: 'error', error: handleError(error) };
+        return { status: 'error', error: error.message };
     }
 });
 

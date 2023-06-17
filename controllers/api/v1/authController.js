@@ -1,6 +1,6 @@
 const User = require('../../../models/user');
 const jwt = require('jsonwebtoken');
-const { ErrorHandler, handleError } = require('../../../helpers/errorHandler');
+// const { ErrorHandler, handleError } = require('../../../helpers/errorHandler');
 require('dotenv').config();
 const crypto = require('crypto');
 const Queue = require('bull');
@@ -14,7 +14,8 @@ exports.login = async (req, res) => {
     try {
         const { identifier, password } = req.body; // Rename email to identifier
         if (!identifier || !password) {
-            throw new ErrorHandler(400, 'Please provide email/username and password');
+            console.log('Please provide email/username and password');
+            // throw new ErrorHandler(400, 'Please provide email/username and password');
         }
 
         // Check for the user using either email or username
@@ -27,7 +28,8 @@ exports.login = async (req, res) => {
 
 
         if (!user || !(await user.correctPassword(password, user.password))) {
-            throw new ErrorHandler(401, 'Incorrect email/username or password');
+            console.log('Incorrect email/username or password');
+            // throw new ErrorHandler(401, 'Incorrect email/username or password');
         }
 
 
@@ -97,7 +99,8 @@ exports.login = async (req, res) => {
 
         res.status(200).json({ status: 'success', token, data: responseData });
     } catch (error) {
-        handleError(error, res);
+        console.log('Error: ', error);
+        // handleError(error, res);
     };
 };
 

@@ -243,3 +243,16 @@
 [0mGET /favicon.ico [33m404[0m 0.642 ms - 29[0m
 [0mGET /user/register [33m404[0m 1.214 ms - 29[0m
 [0mGET /api/v1/user/register [33m404[0m 12.046 ms - 29[0m
+[0mGET / [33m404[0m 3.588 ms - 29[0m
+[0mGET /favicon.ico [33m404[0m 0.549 ms - 29[0m
+[0mGET / [33m404[0m 1.129 ms - 29[0m
+[0mGET / [33m404[0m 1.744 ms - 29[0m
+[0mGET / [33m404[0m 6.049 ms - 29[0m
+[0mGET / [33m404[0m 10.530 ms - 29[0m
+[0mGET / [33m404[0m 3.292 ms - 29[0m
+[0mGET / [33m404[0m 16.744 ms - 29[0m
+[0mGET / [33m404[0m 3.810 ms - 29[0m
+[0mGET / [33m404[0m 1.364 ms - 29[0m
+[0mGET / [33m404[0m 0.349 ms - 29[0m
+[0mGET / [33m404[0m 0.319 ms - 29[0m
+[0mGET / [33m404[0m 0.295 ms - 29[0m

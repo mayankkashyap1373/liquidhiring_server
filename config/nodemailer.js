@@ -2,7 +2,7 @@ const nodemailer = require('nodemailer');
 const ejs = require('ejs');
 const path = require('path');
 const env = require('./environment');
-const { ErrorHandler, handleError } = require('../helpers/errorHandler');
+// const { ErrorHandler, handleError } = require('../helpers/errorHandler');
 
 let transporter = nodemailer.createTransport({
     host: 'premium102.web-hosting.com',
@@ -22,14 +22,16 @@ let renderTemplate = (data, relativePath) => {
             data,
             (err, template) => {
                 if (err) {
-                    throw new ErrorHandler(500, 'Error in rendering template', err);
+                    console.log('Error in rendering template', err);
+                    // throw new ErrorHandler(500, 'Error in rendering template', err);
                 }
                 mailHTML = template;
             }
         );
         return mailHTML;
     } catch (err) {
-        handleError(err);
+        console.log('Error in rendering template', err);
+        // handleError(err);
     }
 };
 

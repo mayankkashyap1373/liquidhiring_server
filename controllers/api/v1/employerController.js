@@ -1,7 +1,7 @@
 const Job = require('../../../models/job');
 const AppliedJob = require('../../../models/appliedJob');
 const Employer = require('../../../models/employer');
-const { ErrorHandler, handleError } = require('../../../helpers/errorHandler');
+// const { ErrorHandler, handleError } = require('../../../helpers/errorHandler');
 
 // Create a new job
 exports.createJob = async (req, res) => {
@@ -34,12 +34,14 @@ exports.updateJob = async (req, res) => {
         });
 
         if (!job) {
-            throw new ErrorHandler(404, 'Job not found');
+            console.log("Job not found");
+            // throw new ErrorHandler(404, 'Job not found');
         }
 
         res.status(200).json({ status: 'success', data: { job } });
     } catch (error) {
-        handleError(res, error);
+        console.log("Error: ", error);
+        // handleError(res, error);
     }
 };
 
