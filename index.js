@@ -75,7 +75,7 @@ app.use(cors({
 require('dotenv').config();
 
 // Get the port number from the environment variables
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 8080;
 
 // Import database configuration
 const db = require('./config/mongoose');
