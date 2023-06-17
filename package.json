@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "worker": "node workers/email_verification_worker.js",
-    "start": "concurrently \"nodemon index.js\" \"nodemon config/workers/bull_worker.js\" \"nodemon queueProcessors/chatGPTProcessor.js\" \"nodemon queueProcessors/resumeProcessor.js\""
+    "start": "concurrently \"node index.js\" \"node config/workers/bull_worker.js\" \"node queueProcessors/chatGPTProcessor.js\" \"node queueProcessors/resumeProcessor.js\""
   },
   "author": "",
   "license": "ISC",
